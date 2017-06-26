@@ -13,6 +13,7 @@ public class UserReducer extends Reducer<UserDimention, IntWritable, UserDimenti
 	protected void reduce(UserDimention key, Iterable<IntWritable> value,
 			Reducer<UserDimention, IntWritable, UserDimention, IntWritable>.Context context)
 			throws IOException, InterruptedException {
+		
 		int count = 0;
 		for(IntWritable i : value){
 			count += i.get();
