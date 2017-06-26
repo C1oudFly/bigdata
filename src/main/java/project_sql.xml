@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet type="text/xsl" href="configuration.xsl"?>
+<configuration>
+	<property>
+		<name>adduser</name>
+		<value>insert into pro_adduser values(?,?) ON DUPLICATE KEY UPDATE count = ?</value>
+	</property>
+	
+	<property>
+		<name>visituser</name>
+		<value>insert into pro_visituser values(?,?) ON DUPLICATE KEY UPDATE count = ?</value>
+	</property>
+	
+	<property>
+		<name>selectlast</name>
+		<value>select * from pro_visitcount order by date desc limit 1</value>
+	</property>
+	
+	<property>
+		<name>visitcount</name>
+		<value>insert into pro_visitcount values(?,?) ON DUPLICATE KEY UPDATE count = ?</value>
+	</property>
+
+</configuration>
