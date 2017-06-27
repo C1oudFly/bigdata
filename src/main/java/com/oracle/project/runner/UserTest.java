@@ -5,6 +5,7 @@ import java.sql.Connection;
 import org.apache.hadoop.conf.Configuration;
 import org.apache.hadoop.fs.Path;
 import org.apache.hadoop.io.IntWritable;
+import org.apache.hadoop.io.LongWritable;
 import org.apache.hadoop.mapreduce.Job;
 import org.apache.hadoop.mapreduce.lib.input.FileInputFormat;
 import org.apache.hadoop.util.Tool;
@@ -22,6 +23,7 @@ public class UserTest implements Tool {
 		this.conf = conf;
 		conf.addResource("jdbc.xml");
 		conf.addResource("project_sql.xml");
+		conf.addResource("sqlclasspath.xml");
 	}
 
 	public Configuration getConf() {
@@ -34,11 +36,11 @@ public class UserTest implements Tool {
 		
 		job.setMapperClass(UserMapper.class);
 		job.setMapOutputKeyClass(UserDimention.class);
-		job.setMapOutputValueClass(IntWritable.class);
+		job.setMapOutputValueClass(LongWritable.class);
 		
 		job.setReducerClass(UserReducer.class);
 		job.setOutputKeyClass(UserDimention.class);
-		job.setOutputValueClass(IntWritable.class);
+		job.setOutputValueClass(LongWritable.class);
 		
 		FileInputFormat.setInputPaths(job, new Path("hdfs://yunfei1:9000/contextout/part-r-00000"));
 		job.setOutputFormatClass(UserOutputFormat.class);

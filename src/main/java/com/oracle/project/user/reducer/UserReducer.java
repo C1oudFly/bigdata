@@ -2,23 +2,46 @@ package com.oracle.project.user.reducer;
 
 import java.io.IOException;
 
-import org.apache.hadoop.io.IntWritable;
+import org.apache.hadoop.io.LongWritable;
 import org.apache.hadoop.mapreduce.Reducer;
 
 import com.oracle.project.user.dimention.UserDimention;
 
-public class UserReducer extends Reducer<UserDimention, IntWritable, UserDimention, IntWritable> {
+public class UserReducer extends Reducer<UserDimention, LongWritable, UserDimention, LongWritable> {
 	
 	@Override
-	protected void reduce(UserDimention key, Iterable<IntWritable> value,
-			Reducer<UserDimention, IntWritable, UserDimention, IntWritable>.Context context)
+	protected void reduce(UserDimention key, Iterable<LongWritable> value,
+			Reducer<UserDimention, LongWritable, UserDimention, LongWritable>.Context context)
 			throws IOException, InterruptedException {
 		
 		int count = 0;
-		for(IntWritable i : value){
-			count += i.get();
+		
+		if(key.getSign().equals("sessionlength")){
+			long max = 0;
+			long min = 0;
+			for(LongWritable l : value){
+				if(max == 0){
+					max = l.get();
+					min = l.get();
+				}else {
+					if(min > l.get()){
+						min = l.get();
+					}
+					if(max < l.get()){
+						max = l.get();
+					}
+				}
+			}
+			context.write(key, new LongWritable(max-min));
+		}else {
+			
+			
+			for(LongWritable i : value){
+				count += i.get();
+			}
+			context.write(key, new LongWritable(count));
 		}
-		context.write(key, new IntWritable(count));
+
 	}
 
 }

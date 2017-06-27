@@ -3,12 +3,9 @@ package com.oracle.project.sql.imp;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
-import org.apache.hadoop.io.IntWritable;
-
 import com.oracle.project.sql.BaseUser;
-import com.oracle.project.user.dimention.UserDimention;
 
-public class AddUser implements BaseUser {
+public class SessionLength implements BaseUser {
 
 	public void setPreparedStatement(PreparedStatement ps, String key, String value) {
 		try {

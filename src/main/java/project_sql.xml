@@ -12,13 +12,47 @@
 	</property>
 	
 	<property>
-		<name>selectlast</name>
+		<name>addmember</name>
+		<value>insert into pro_addmember values(?,?) ON DUPLICATE KEY UPDATE count = ?</value>
+	</property>
+	
+	<property>
+		<name>activemember</name>
+		<value>insert into pro_activemember values(?,?) ON DUPLICATE KEY UPDATE count = ?</value>
+	</property>
+	
+	<property>
+		<name>slvisitcount</name>
 		<value>select * from pro_visitcount order by date desc limit 1</value>
+	</property>
+	
+	<property>
+		<name>slactivecount</name>
+		<value>select * from pro_activecount order by date desc limit 1</value>
 	</property>
 	
 	<property>
 		<name>visitcount</name>
 		<value>insert into pro_visitcount values(?,?) ON DUPLICATE KEY UPDATE count = ?</value>
 	</property>
-
+	
+	<property>
+		<name>activecount</name>
+		<value>insert into pro_activecount values(?,?) ON DUPLICATE KEY UPDATE count = ?</value>
+	</property>
+	
+	<property>
+		<name>sessionnumber</name>
+		<value>insert into pro_sessionnumber values(?,?) ON DUPLICATE KEY UPDATE count = ?</value>
+	</property>
+	
+	<property>
+		<name>sessionlength</name>
+		<value>insert into pro_sessionlength values(?,?) ON DUPLICATE KEY UPDATE count = ?</value>
+	</property>
+	
+	<property>
+		<name>averagesessionlength</name>
+		<value>insert into pro_averagesessionlength values(?,?) ON DUPLICATE KEY UPDATE count = ?</value>
+	</property>
 </configuration>

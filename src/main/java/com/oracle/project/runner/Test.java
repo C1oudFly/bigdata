@@ -1,50 +1,26 @@
 package com.oracle.project.runner;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.Locale;
+import java.io.UnsupportedEncodingException;
+import java.net.URLDecoder;
+
+import com.oracle.project.utils.UserAgentUtils;
+
+import cz.mallat.uasparser.UserAgentInfo;
 
 public class Test {
 
 	public static void main(String[] args) {
 		
-		String s = "[19/Jun/2017:08:17:34 +0800]";
-		
-		
-		System.out.println(toDateH(s));
-		
-		System.out.println(toDate(toDateH(s)));
-	}
-	
-	
-	public static String toDateH(String date){
-		SimpleDateFormat in = new SimpleDateFormat("[dd/MMM/yyyy:HH:mm:ss ZZZZZ]", Locale.US);
-		SimpleDateFormat out = new SimpleDateFormat("yyyy-MM-dd:HH");
+		String agent="Mozilla%2F5.0%20(compatible%3B%20MSIE%2010.0%3B%20Windows%20NT%206.1%3B%20WOW64%3B%20Trident%2F7.0%3B%20LCTE)";
+		String agentDecoder=URLDecoder.decode(agent);
+		UserAgentInfo userAgentInfo=UserAgentUtils.getUserAgentInfo(agentDecoder);
+		System.out.println(userAgentInfo.getUaFamily());
 		
 		try {
-			Date date1 = in.parse(date);
-			date = out.format(date1);
-		} catch (ParseException e) {
+			System.out.println(URLDecoder.decode("%E4%BA%BA%E6%B0%91%E5%B8%81","UTF-8"));
+		} catch (UnsupportedEncodingException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		return date;
 	}
-	
-	public static String toDate(String date){
-		SimpleDateFormat in = new SimpleDateFormat("yyyy-MM-dd:HH");
-		SimpleDateFormat out = new SimpleDateFormat("yyyy-MM-dd");
-		
-		try {
-			Date date1 = in.parse(date);
-			date = out.format(date1);
-		} catch (ParseException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		
-		return date;
-	}
-
 }

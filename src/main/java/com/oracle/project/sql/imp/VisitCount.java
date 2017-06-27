@@ -7,12 +7,12 @@ import com.oracle.project.sql.BaseUser;
 
 public class VisitCount implements BaseUser {
 
-	public void setPreparedStatement(PreparedStatement ps, String key, Integer value) {
+	public void setPreparedStatement(PreparedStatement ps, String key, String value) {
 		
 		try {
 			ps.setString(1, key);
-			ps.setString(2, value.toString());
-			ps.setString(3, value.toString());
+			ps.setString(2, value);
+			ps.setString(3, value);
 			
 			ps.executeUpdate();
 		} catch (SQLException e) {
