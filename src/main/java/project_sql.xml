@@ -55,4 +55,45 @@
 		<name>averagesessionlength</name>
 		<value>insert into pro_averagesessionlength values(?,?) ON DUPLICATE KEY UPDATE count = ?</value>
 	</property>
+	
+	<property>
+		<name>bigtable</name>
+		<value>insert into pro_bigtable values(?,?,?,?,?,?,?,?,?,?) ON DUPLICATE KEY UPDATE adduserCount = ?,visitCount = ?,userCount = ?,addmemberCount = ?,activeCount = ?,memberCount = ?,sessionnumberCount = ?,sessionlengthCount = ?,averagesessionlength = ?</value>
+	</property>
+	
+	<property>
+		<name>adduserbrowser</name>
+		<value>insert into pro_adduserbrowser values(?,?,?) ON DUPLICATE KEY UPDATE count = ?</value>
+	</property>
+	
+	<property>
+		<name>activeuserbrowser</name>
+		<value>insert into pro_activeuserbrowser values(?,?,?,?) ON DUPLICATE KEY UPDATE activeusercount = ?,usercount = ?</value>
+	</property>
+	
+	<property>
+		<name>addmemberbrowser</name>
+		<value>insert into pro_addmemberbrowser values(?,?,?,?) ON DUPLICATE KEY UPDATE addmembercount = ?,membercount = ?</value>
+	</property>
+	
+	<property>
+		<name>activememberbrowser</name>
+		<value>insert into pro_activememberbrowser values(?,?,?) ON DUPLICATE KEY UPDATE count = ?</value>
+	</property>
+	
+	<property>
+		<name>sessionnumberbrowser</name>
+		<value>insert into pro_sessionnumberbrowser values(?,?,?,?) ON DUPLICATE KEY UPDATE count = ?,average = ?</value>
+	</property>
+	
+	<property>
+		<name>sessionlengthbrowser</name>
+		<value>insert into pro_sessionlengthbrowser values(?,?,?,?) ON DUPLICATE KEY UPDATE dvalue = ?,count = ?</value>
+	</property>
+	
+	<property>
+		<name>pvbrowser</name>
+		<value>insert into pro_pvbrowser values(?,?,?) ON DUPLICATE KEY UPDATE count = ?</value>
+	</property>
+	
 </configuration>

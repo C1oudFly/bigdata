@@ -1,4 +1,4 @@
-package com.oracle.project.user.outputformat;
+package com.oracle.project.outputformat.user;
 
 import java.io.IOException;
 import java.sql.Connection;
@@ -18,6 +18,7 @@ import org.apache.hadoop.mapreduce.lib.output.FileOutputCommitter;
 import org.apache.hadoop.mapreduce.lib.output.FileOutputFormat;
 
 import com.oracle.project.connect.JdbcManager;
+import com.oracle.project.dimention.user.UserDimention;
 import com.oracle.project.sql.imp.ActiveMember;
 import com.oracle.project.sql.imp.AddMember;
 import com.oracle.project.sql.imp.AddUser;
@@ -25,7 +26,6 @@ import com.oracle.project.sql.imp.AverageSessionLength;
 import com.oracle.project.sql.imp.SessionLength;
 import com.oracle.project.sql.imp.SessionNumber;
 import com.oracle.project.sql.imp.VisitUser;
-import com.oracle.project.user.dimention.UserDimention;
 import com.oracle.project.utils.Pshandler;
 
 public class UserOutputFormat extends OutputFormat<UserDimention, LongWritable> {

@@ -1,4 +1,4 @@
-package com.oracle.project.user.dimention;
+package com.oracle.project.dimention.user;
 
 import java.io.DataInput;
 import java.io.DataOutput;
@@ -7,20 +7,11 @@ import java.io.IOException;
 import org.apache.hadoop.io.WritableComparable;
 
 public class UserDimention implements WritableComparable<UserDimention> {
-	private String date;
 	private String sign;
+	private String date;
 	private String u_uid;
 	private String u_mid;
 	private String u_sd;
-	private String b_iev;
-	
-	public String getB_iev() {
-		return b_iev;
-	}
-
-	public void setB_iev(String b_iev) {
-		this.b_iev = b_iev;
-	}
 
 	public String getU_sd() {
 		return u_sd;
@@ -66,13 +57,12 @@ public class UserDimention implements WritableComparable<UserDimention> {
 		
 	}
 	
-	public UserDimention(String sign,String date,String u_ud,String u_mid,String u_sd,String b_iev) {
+	public UserDimention(String sign,String date,String u_ud,String u_mid,String u_sd) {
 		this.sign = sign;
 		this.date = date;
 		this.u_uid = u_ud;
 		this.u_mid = u_mid;
 		this.u_sd = u_sd;
-		this.b_iev = b_iev;
 	}
 	
 	public void write(DataOutput out) throws IOException {
@@ -81,7 +71,6 @@ public class UserDimention implements WritableComparable<UserDimention> {
 		out.writeUTF(u_uid);
 		out.writeUTF(u_mid);
 		out.writeUTF(u_sd);
-		out.writeUTF(b_iev);
 	}
 
 	public void readFields(DataInput in) throws IOException {
@@ -90,7 +79,6 @@ public class UserDimention implements WritableComparable<UserDimention> {
 		this.u_uid = in.readUTF();
 		this.u_mid = in.readUTF();
 		this.u_sd = in.readUTF();
-		this.b_iev = in.readUTF();
 	}
 
 	public int compareTo(UserDimention o) {
@@ -123,11 +111,6 @@ public class UserDimention implements WritableComparable<UserDimention> {
 		if(tmp != 0){
 			return tmp;
 		}
-		
-		tmp = this.b_iev.compareTo(o.b_iev);
-		if(tmp != 0){
-			return tmp;
-		}
 
 		return 0;
 	}
@@ -142,7 +125,6 @@ public class UserDimention implements WritableComparable<UserDimention> {
 		result = (result*prime) + this.u_uid == null ? 0 : this.u_uid.hashCode();
 		result = (result*prime) + this.u_mid == null ? 0 : this.u_mid.hashCode();
 		result = (result*prime) + this.u_sd == null ? 0 : this.u_sd.hashCode();
-		result = (result*prime) + this.b_iev == null ? 0 : this.b_iev.hashCode();
 		
 		return result;
 	}
@@ -219,25 +201,13 @@ public class UserDimention implements WritableComparable<UserDimention> {
 			return false;
 		}
 		
-		if(this.b_iev == null){
-			if(userDimention.b_iev != null){
-				return false;
-			}
-		}else if(userDimention.b_iev == null) {
-			if(this.b_iev != null){
-				return false;
-			}
-		}else if(!this.b_iev.equals(userDimention.b_iev)) {
-			return false;
-		}
-		
 		return true;
 	}
 	
 	@Override
 	public String toString() {
 		// TODO Auto-generated method stub
-		return this.date + "\t" + this.sign + "\t" + this.u_uid + "\t" + this.u_mid + "\t" + this.u_sd + "\t" +this.b_iev;
+		return this.date + "\t" + this.sign + "\t" + this.u_uid + "\t" + this.u_mid + "\t" + this.u_sd;
 	}
 	
 }

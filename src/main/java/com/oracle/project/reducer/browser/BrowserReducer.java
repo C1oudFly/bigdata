@@ -1,17 +1,17 @@
-package com.oracle.project.user.reducer;
+package com.oracle.project.reducer.browser;
 
 import java.io.IOException;
 
 import org.apache.hadoop.io.LongWritable;
 import org.apache.hadoop.mapreduce.Reducer;
 
-import com.oracle.project.dimention.user.UserDimention;
+import com.oracle.project.dimention.browser.BrowserDimention;
 
-public class UserReducer extends Reducer<UserDimention, LongWritable, UserDimention, LongWritable> {
+public class BrowserReducer extends Reducer<BrowserDimention, LongWritable, BrowserDimention, LongWritable> {
 	
 	@Override
-	protected void reduce(UserDimention key, Iterable<LongWritable> value,
-			Reducer<UserDimention, LongWritable, UserDimention, LongWritable>.Context context)
+	protected void reduce(BrowserDimention key, Iterable<LongWritable> value,
+			Reducer<BrowserDimention, LongWritable, BrowserDimention, LongWritable>.Context context)
 			throws IOException, InterruptedException {
 		
 		int count = 0;
@@ -42,7 +42,5 @@ public class UserReducer extends Reducer<UserDimention, LongWritable, UserDiment
 			}
 			context.write(key, new LongWritable(count));
 		}
-
 	}
-
 }

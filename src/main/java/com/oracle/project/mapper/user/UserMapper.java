@@ -1,15 +1,17 @@
-package com.oracle.project.user.mapper;
+package com.oracle.project.mapper.user;
 
 import java.io.IOException;
+import java.net.URLDecoder;
 import java.util.Map;
 
 import org.apache.hadoop.io.LongWritable;
 import org.apache.hadoop.io.Text;
 import org.apache.hadoop.mapreduce.Mapper;
 
-import com.oracle.project.user.dimention.UserDimention;
+import com.oracle.project.dimention.user.UserDimention;
 import com.oracle.project.utils.ToDate;
 import com.oracle.project.utils.UrlPropertyUtils;
+import com.oracle.project.utils.UserAgentUtils;
 
 public class UserMapper extends Mapper<LongWritable, Text, UserDimention, LongWritable> {
 	@Override
@@ -23,10 +25,16 @@ public class UserMapper extends Mapper<LongWritable, Text, UserDimention, LongWr
 		String url = lines[3];
 		
 		Map<String, String> map = UrlPropertyUtils.toMap(url);
-		String b_iev = UrlPropertyUtils.KEY_BROWSER;
-				
-		if(map.get(UrlPropertyUtils.KEY_EVENT).equals("e_l") && b_iev != null){
-			UserDimention userDimention = new UserDimention("adduser", date, "-", "-","-", b_iev);
+		String b_iev = map.get(UrlPropertyUtils.KEY_BROWSER);
+		
+		if(b_iev == null){
+			b_iev = "unkonwn";
+		}else {
+			b_iev = UserAgentUtils.getUserAgentInfo(URLDecoder.decode(b_iev)).getUaFamily();	
+		}
+		
+		if(map.get(UrlPropertyUtils.KEY_EVENT).equals("e_l")){
+			UserDimention userDimention = new UserDimention("adduser", date, "-", "-","-");
 			context.write(userDimention, new LongWritable(1));
 		}
 		
@@ -35,8 +43,8 @@ public class UserMapper extends Mapper<LongWritable, Text, UserDimention, LongWr
 		String u_ud = map.get(UrlPropertyUtils.KEY_USER);
 		
 		
-		if(u_ud != null && b_iev != null){
-			UserDimention userDimention = new UserDimention("visituser", date, u_ud, "-","-",b_iev);
+		if(u_ud != null){
+			UserDimention userDimention = new UserDimention("visituser", date, u_ud, "-","-");
 			context.write(userDimention, new LongWritable(0));
 		}
 			
@@ -47,7 +55,7 @@ public class UserMapper extends Mapper<LongWritable, Text, UserDimention, LongWr
 		String u_mid = map.get(UrlPropertyUtils.KEY_MEMBER);
 		
 		if(p_url != null && p_url.endsWith("demo4.jsp") && u_mid != null){
-			UserDimention userDimention = new UserDimention("addmember", date, "-", u_mid,"-",b_iev);
+			UserDimention userDimention = new UserDimention("addmember", date, "-", u_mid,"-");
 			
 			context.write(userDimention, new LongWritable(0));
 		}
@@ -56,14 +64,14 @@ public class UserMapper extends Mapper<LongWritable, Text, UserDimention, LongWr
 		//==================================活跃会员===============================
 		
 		if(u_mid != null){
-			UserDimention userDimention = new UserDimention("activemember", date, "-", u_mid,"-",b_iev);
+			UserDimention userDimention = new UserDimention("activemember", date, "-", u_mid,"-");
 			context.write(userDimention, new LongWritable(0));
 		}
 		
 		//===================================会话个数==============================
 		String u_sd = map.get(UrlPropertyUtils.KEY_SESSION);
-		if(u_sd != null){
-			UserDimention userDimention = new UserDimention("sessionnumber", date, "-", "-", u_sd,b_iev);
+		if(u_sd != null ){
+			UserDimention userDimention = new UserDimention("sessionnumber", date, "-", "-", u_sd);
 			context.write(userDimention, new LongWritable(0));
 		}
 		
@@ -73,7 +81,7 @@ public class UserMapper extends Mapper<LongWritable, Text, UserDimention, LongWr
 		String c_time = map.get(UrlPropertyUtils.KEY_TIME);
 		
 		if(u_sd != null && c_time != null){
-			UserDimention userDimention = new UserDimention("sessionlength", date, "-", "-", u_sd,b_iev);
+			UserDimention userDimention = new UserDimention("sessionlength", date, "-", "-", u_sd);
 			context.write(userDimention, new LongWritable(Long.parseLong(c_time)));
 		}
 	}

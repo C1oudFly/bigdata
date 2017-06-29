@@ -7,16 +7,16 @@ import org.apache.hadoop.fs.Path;
 import org.apache.hadoop.io.LongWritable;
 import org.apache.hadoop.mapreduce.Job;
 import org.apache.hadoop.mapreduce.lib.input.FileInputFormat;
-import org.apache.hadoop.mapreduce.task.ReduceContextImpl;
 import org.apache.hadoop.util.Tool;
 import org.apache.hadoop.util.ToolRunner;
 
-import com.oracle.project.dimention.user.UserDimention;
-import com.oracle.project.mapper.user.UserMapper;
-import com.oracle.project.outputformat.user.OutputformatUpdate;
-import com.oracle.project.user.reducer.UserReducer;
+import com.oracle.project.dimention.browser.BrowserDimention;
+import com.oracle.project.mapper.browser.BrowserMapper;
+import com.oracle.project.outputformat.browser.OutputFormatBrowser;
+import com.oracle.project.reducer.browser.BrowserReducer;
 
-public class UserTest implements Tool {
+public class BrowserRunner implements Tool {
+
 	private Configuration conf;
 	private Connection connection;
 	public void setConf(Configuration conf) {
@@ -32,18 +32,18 @@ public class UserTest implements Tool {
 
 	public int run(String[] args) throws Exception {
 		Job job = Job.getInstance(conf);
-		job.setJarByClass(UserTest.class);
+		job.setJarByClass(BrowserRunner.class);
 		
-		job.setMapperClass(UserMapper.class);
-		job.setMapOutputKeyClass(UserDimention.class);
+		job.setMapperClass(BrowserMapper.class);
+		job.setMapOutputKeyClass(BrowserDimention.class);
 		job.setMapOutputValueClass(LongWritable.class);
 		
-		job.setReducerClass(UserReducer.class);
-		job.setOutputKeyClass(UserDimention.class);
+		job.setReducerClass(BrowserReducer.class);
+		job.setOutputKeyClass(BrowserDimention.class);
 		job.setOutputValueClass(LongWritable.class);
 		
 		FileInputFormat.setInputPaths(job, new Path("hdfs://yunfei1:9000/contextout/part-r-00000"));
-		job.setOutputFormatClass(OutputformatUpdate.class);
+		job.setOutputFormatClass(OutputFormatBrowser.class);
 		if(job.waitForCompletion(true)){
 			return 1;
 		}
@@ -52,8 +52,7 @@ public class UserTest implements Tool {
 	}
 
 	public static void main(String[] args) throws Exception {
-		int result = ToolRunner.run(new UserTest(), args);
+		int result = ToolRunner.run(new BrowserRunner(), args);
 		System.out.println(result);
 	}
-
 }

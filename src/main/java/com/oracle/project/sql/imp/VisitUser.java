@@ -5,8 +5,8 @@ import java.sql.SQLException;
 
 import org.apache.hadoop.io.IntWritable;
 
+import com.oracle.project.dimention.user.UserDimention;
 import com.oracle.project.sql.BaseUser;
-import com.oracle.project.user.dimention.UserDimention;
 
 public class VisitUser implements BaseUser {
 
