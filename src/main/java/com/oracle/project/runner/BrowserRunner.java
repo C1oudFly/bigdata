@@ -12,7 +12,7 @@ import org.apache.hadoop.util.ToolRunner;
 
 import com.oracle.project.dimention.browser.BrowserDimention;
 import com.oracle.project.mapper.browser.BrowserMapper;
-import com.oracle.project.outputformat.browser.OutputFormatBrowser;
+import com.oracle.project.outputformat.browser.OutputFormatBrowserUpdate;
 import com.oracle.project.reducer.browser.BrowserReducer;
 
 public class BrowserRunner implements Tool {
@@ -43,7 +43,7 @@ public class BrowserRunner implements Tool {
 		job.setOutputValueClass(LongWritable.class);
 		
 		FileInputFormat.setInputPaths(job, new Path("hdfs://yunfei1:9000/contextout/part-r-00000"));
-		job.setOutputFormatClass(OutputFormatBrowser.class);
+		job.setOutputFormatClass(OutputFormatBrowserUpdate.class);
 		if(job.waitForCompletion(true)){
 			return 1;
 		}

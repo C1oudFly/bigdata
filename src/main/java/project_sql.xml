@@ -2,98 +2,28 @@
 <?xml-stylesheet type="text/xsl" href="configuration.xsl"?>
 <configuration>
 	<property>
-		<name>adduser</name>
-		<value>insert into pro_adduser values(?,?) ON DUPLICATE KEY UPDATE count = ?</value>
-	</property>
-	
-	<property>
-		<name>visituser</name>
-		<value>insert into pro_visituser values(?,?) ON DUPLICATE KEY UPDATE count = ?</value>
-	</property>
-	
-	<property>
-		<name>addmember</name>
-		<value>insert into pro_addmember values(?,?) ON DUPLICATE KEY UPDATE count = ?</value>
-	</property>
-	
-	<property>
-		<name>activemember</name>
-		<value>insert into pro_activemember values(?,?) ON DUPLICATE KEY UPDATE count = ?</value>
-	</property>
-	
-	<property>
-		<name>slvisitcount</name>
-		<value>select * from pro_visitcount order by date desc limit 1</value>
-	</property>
-	
-	<property>
-		<name>slactivecount</name>
-		<value>select * from pro_activecount order by date desc limit 1</value>
-	</property>
-	
-	<property>
-		<name>visitcount</name>
-		<value>insert into pro_visitcount values(?,?) ON DUPLICATE KEY UPDATE count = ?</value>
-	</property>
-	
-	<property>
-		<name>activecount</name>
-		<value>insert into pro_activecount values(?,?) ON DUPLICATE KEY UPDATE count = ?</value>
-	</property>
-	
-	<property>
-		<name>sessionnumber</name>
-		<value>insert into pro_sessionnumber values(?,?) ON DUPLICATE KEY UPDATE count = ?</value>
-	</property>
-	
-	<property>
-		<name>sessionlength</name>
-		<value>insert into pro_sessionlength values(?,?) ON DUPLICATE KEY UPDATE count = ?</value>
-	</property>
-	
-	<property>
-		<name>averagesessionlength</name>
-		<value>insert into pro_averagesessionlength values(?,?) ON DUPLICATE KEY UPDATE count = ?</value>
-	</property>
-	
-	<property>
 		<name>bigtable</name>
 		<value>insert into pro_bigtable values(?,?,?,?,?,?,?,?,?,?) ON DUPLICATE KEY UPDATE adduserCount = ?,visitCount = ?,userCount = ?,addmemberCount = ?,activeCount = ?,memberCount = ?,sessionnumberCount = ?,sessionlengthCount = ?,averagesessionlength = ?</value>
 	</property>
 	
 	<property>
-		<name>adduserbrowser</name>
-		<value>insert into pro_adduserbrowser values(?,?,?) ON DUPLICATE KEY UPDATE count = ?</value>
+		<name>bigtablebrowser</name>
+		<value>insert into pro_bigtablebrowser values(?,?,?,?,?,?,?,?,?,?,?,?,?) ON DUPLICATE KEY UPDATE adduserCount = ?,visitCount = ?,userCount = ?,addmemberCount = ?,activeCount = ?,memberCount = ?,sessionnumberCount = ?,sessionlengthdvalue = ?,sessionlengthCount = ?,averagesessionLength  = ?,browserPv = ?</value>
 	</property>
 	
 	<property>
-		<name>activeuserbrowser</name>
-		<value>insert into pro_activeuserbrowser values(?,?,?,?) ON DUPLICATE KEY UPDATE activeusercount = ?,usercount = ?</value>
+		<name>region</name>
+		<value>insert into pro_region values(?,?,?,?,?,?) ON DUPLICATE KEY UPDATE regioncount = ?, sessionnumber = ?,sessionjumpnumber = ?, jumprate = ?</value>
 	</property>
 	
 	<property>
-		<name>addmemberbrowser</name>
-		<value>insert into pro_addmemberbrowser values(?,?,?,?) ON DUPLICATE KEY UPDATE addmembercount = ?,membercount = ?</value>
+		<name>sessionregion</name>
+		<value>insert into pro_sessionregion values(?,?,?) ON DUPLICATE KEY UPDATE count = ?</value>
 	</property>
 	
 	<property>
-		<name>activememberbrowser</name>
-		<value>insert into pro_activememberbrowser values(?,?,?) ON DUPLICATE KEY UPDATE count = ?</value>
-	</property>
-	
-	<property>
-		<name>sessionnumberbrowser</name>
-		<value>insert into pro_sessionnumberbrowser values(?,?,?,?) ON DUPLICATE KEY UPDATE count = ?,average = ?</value>
-	</property>
-	
-	<property>
-		<name>sessionlengthbrowser</name>
-		<value>insert into pro_sessionlengthbrowser values(?,?,?,?) ON DUPLICATE KEY UPDATE dvalue = ?,count = ?</value>
-	</property>
-	
-	<property>
-		<name>pvbrowser</name>
-		<value>insert into pro_pvbrowser values(?,?,?) ON DUPLICATE KEY UPDATE count = ?</value>
+		<name>sessionjumpnumber</name>
+		<value>insert into pro_sessionjumpnumber values(?,?,?) ON DUPLICATE KEY UPDATE count = ?</value>
 	</property>
 	
 </configuration>
