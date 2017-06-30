@@ -14,7 +14,7 @@ import org.apache.hadoop.util.ToolRunner;
 import com.oracle.project.dimention.user.UserDimention;
 import com.oracle.project.mapper.user.UserMapper;
 import com.oracle.project.outputformat.user.OutputformatUpdate;
-import com.oracle.project.user.reducer.UserReducer;
+import com.oracle.project.reducer.user.UserReducer;
 
 public class UserTest implements Tool {
 	private Configuration conf;

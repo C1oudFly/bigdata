@@ -1,4 +1,4 @@
-package com.oracle.project.user.reducer;
+package com.oracle.project.reducer.user;
 
 import java.io.IOException;
 
