@@ -34,7 +34,7 @@ public class UserMapper extends Mapper<LongWritable, Text, UserDimention, LongWr
 		}
 		
 		if(map.get(UrlPropertyUtils.KEY_EVENT).equals("e_l")){
-			UserDimention userDimention = new UserDimention("adduser", date, "-", "-","-");
+			UserDimention userDimention = new UserDimention("adduser", date, "-", "-","-","-");
 			context.write(userDimention, new LongWritable(1));
 		}
 		
@@ -44,7 +44,7 @@ public class UserMapper extends Mapper<LongWritable, Text, UserDimention, LongWr
 		
 		
 		if(u_ud != null){
-			UserDimention userDimention = new UserDimention("visituser", date, u_ud, "-","-");
+			UserDimention userDimention = new UserDimention("visituser", date, u_ud, "-","-","-");
 			context.write(userDimention, new LongWritable(0));
 		}
 			
@@ -55,7 +55,7 @@ public class UserMapper extends Mapper<LongWritable, Text, UserDimention, LongWr
 		String u_mid = map.get(UrlPropertyUtils.KEY_MEMBER);
 		
 		if(p_url != null && p_url.endsWith("demo4.jsp") && u_mid != null){
-			UserDimention userDimention = new UserDimention("addmember", date, "-", u_mid,"-");
+			UserDimention userDimention = new UserDimention("addmember", date, "-", u_mid,"-","-");
 			
 			context.write(userDimention, new LongWritable(0));
 		}
@@ -64,14 +64,14 @@ public class UserMapper extends Mapper<LongWritable, Text, UserDimention, LongWr
 		//==================================活跃会员===============================
 		
 		if(u_mid != null){
-			UserDimention userDimention = new UserDimention("activemember", date, "-", u_mid,"-");
+			UserDimention userDimention = new UserDimention("activemember", date, "-", u_mid,"-","-");
 			context.write(userDimention, new LongWritable(0));
 		}
 		
 		//===================================会话个数==============================
 		String u_sd = map.get(UrlPropertyUtils.KEY_SESSION);
 		if(u_sd != null ){
-			UserDimention userDimention = new UserDimention("sessionnumber", date, "-", "-", u_sd);
+			UserDimention userDimention = new UserDimention("sessionnumber", date, "-", "-", u_sd,"-");
 			context.write(userDimention, new LongWritable(0));
 		}
 		
@@ -81,8 +81,15 @@ public class UserMapper extends Mapper<LongWritable, Text, UserDimention, LongWr
 		String c_time = map.get(UrlPropertyUtils.KEY_TIME);
 		
 		if(u_sd != null && c_time != null){
-			UserDimention userDimention = new UserDimention("sessionlength", date, "-", "-", u_sd);
+			UserDimention userDimention = new UserDimention("sessionlength", date, "-", "-", u_sd,"-");
 			context.write(userDimention, new LongWritable(Long.parseLong(c_time)));
 		}
+		
+		//==================================用户访问深度===============================
+		if(u_ud != null && p_url != null){
+			UserDimention userDimention = new UserDimention("visitdepth", date, u_ud, "-", "-", p_url);
+			context.write(userDimention, new LongWritable(0));
+		}
+		
 	}
 }

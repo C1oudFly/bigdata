@@ -17,13 +17,18 @@
 	</property>
 	
 	<property>
-		<name>sessionregion</name>
-		<value>insert into pro_sessionregion values(?,?,?) ON DUPLICATE KEY UPDATE count = ?</value>
+		<name>visitdepth</name>
+		<value>insert into pro_visitdepth values(?,?,?) ON DUPLICATE KEY UPDATE count = ?</value>
 	</property>
 	
 	<property>
-		<name>sessionjumpnumber</name>
-		<value>insert into pro_sessionjumpnumber values(?,?,?) ON DUPLICATE KEY UPDATE count = ?</value>
+		<name>order</name>
+		<value>insert into pro_order values(?,?,?,?,?,?) ON DUPLICATE KEY UPDATE oid = ?,successCount = ?,refundCount = ?,orderNumber = ?,orderCount = ?</value>
+	</property>
+	
+	<property>
+		<name>externallink</name>
+		<value>insert into pro_externallink values(?,?,?,?,?) ON DUPLICATE KEY UPDATE external = ?,externalJump = ?,jumpRate = ?</value>
 	</property>
 	
 </configuration>

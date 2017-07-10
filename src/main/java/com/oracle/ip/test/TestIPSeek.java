@@ -19,7 +19,7 @@ public class TestIPSeek {
 	
 	public static void main(String[] args) {
 		IPSeekerExt ipSeekerExt = new IPSeekerExt();
-		RegionInfo info = ipSeekerExt.analyticIp("172.16.0.15");
+		RegionInfo info = ipSeekerExt.analyticIp("101.198.196.15");
 		System.out.println(" "+info.getCountry()+" "+info.getProvince());
 //		System.out.println("");
 //		//p_url=http://172.16.0.150:8080/BIG_DATA_LOG2/demo.js

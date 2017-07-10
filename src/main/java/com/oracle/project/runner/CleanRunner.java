@@ -29,8 +29,8 @@ public class CleanRunner implements Tool {
 		job.setOutputKeyClass(Text.class);
 		job.setOutputValueClass(NullWritable.class);
 		
-		FileInputFormat.setInputPaths(job, new Path("hdfs://yunfei2:9000/context"));
-		FileOutputFormat.setOutputPath(job, new Path("hdfs://yunfei2:9000/contextout"));
+		FileInputFormat.setInputPaths(job, new Path("hdfs://yunfei1:9000/context2"));
+		FileOutputFormat.setOutputPath(job, new Path("hdfs://yunfei1:9000/contextout2"));
 		
 		if(job.waitForCompletion(true)){
 			return 1;

@@ -52,7 +52,7 @@ public class OutputFormatIp extends OutputFormat<IpDimention, LongWritable> {
 		public void write(IpDimention key, LongWritable value) throws IOException, InterruptedException {
 			newkey = key.getDate() + "\t" + key.getIp();
 			if(key.getSign().equals("region")){
-				
+				System.out.println(key.getIp() + "---------------------------------");
 				if(hashMap.get(newkey) == null){
 					mapValue = new MapValue(newkey, 0, 0, 0, 0);
 					mapValue.setRegion((int)value.get());
@@ -94,7 +94,12 @@ public class OutputFormatIp extends OutputFormat<IpDimention, LongWritable> {
 			}
 			
 			for(String s: hashMap.keySet()){
-				hashMap.get(s).setJumprate((double)hashMap.get(s).getSessionjumpnumber() / (double)hashMap.get(s).getSessionregion());
+				if(hashMap.get(s).getSessionregion() == 0){
+					hashMap.get(s).setJumprate(0.00);
+				}else{
+					hashMap.get(s).setJumprate((double)hashMap.get(s).getSessionjumpnumber() / (double)hashMap.get(s).getSessionregion());
+				}
+			
 				new Region().setPreparedStatement(psMap.get("region"), s, hashMap.get(s));
 			}
 			

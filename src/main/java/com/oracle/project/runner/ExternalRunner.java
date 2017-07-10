@@ -10,12 +10,12 @@ import org.apache.hadoop.mapreduce.lib.input.FileInputFormat;
 import org.apache.hadoop.util.Tool;
 import org.apache.hadoop.util.ToolRunner;
 
-import com.oracle.project.dimention.browser.BrowserDimention;
-import com.oracle.project.mapper.browser.BrowserMapper;
-import com.oracle.project.outputformat.browser.OutputFormatBrowserUpdate;
-import com.oracle.project.reducer.browser.BrowserReducer;
+import com.oracle.project.dimention.external.ExternalDimention;
+import com.oracle.project.mapper.external.ExternalMapper;
+import com.oracle.project.outputformat.external.OutputFormatExternal;
+import com.oracle.project.reducer.external.ExternalReducer;
 
-public class BrowserRunner implements Tool {
+public class ExternalRunner implements Tool {
 
 	private Configuration conf;
 	private Connection connection;
@@ -32,18 +32,18 @@ public class BrowserRunner implements Tool {
 
 	public int run(String[] args) throws Exception {
 		Job job = Job.getInstance(conf);
-		job.setJarByClass(BrowserRunner.class);
+		job.setJarByClass(ExternalRunner.class);
 		
-		job.setMapperClass(BrowserMapper.class);
-		job.setMapOutputKeyClass(BrowserDimention.class);
+		job.setMapperClass(ExternalMapper.class);
+		job.setMapOutputKeyClass(ExternalDimention.class);
 		job.setMapOutputValueClass(LongWritable.class);
 		
-		job.setReducerClass(BrowserReducer.class);
-		job.setOutputKeyClass(BrowserDimention.class);
+		job.setReducerClass(ExternalReducer.class);
+		job.setOutputKeyClass(ExternalDimention.class);
 		job.setOutputValueClass(LongWritable.class);
 		
-		FileInputFormat.setInputPaths(job, new Path("hdfs://yunfei2:9000/contextout2/part-r-00000"));
-		job.setOutputFormatClass(OutputFormatBrowserUpdate.class);
+		FileInputFormat.setInputPaths(job, new Path("hdfs://yunfei1:9000/contextout2/part-r-000002"));
+		job.setOutputFormatClass(OutputFormatExternal.class);
 		if(job.waitForCompletion(true)){
 			return 1;
 		}
@@ -52,7 +52,8 @@ public class BrowserRunner implements Tool {
 	}
 
 	public static void main(String[] args) throws Exception {
-		int result = ToolRunner.run(new BrowserRunner(), args);
+		int result = ToolRunner.run(new ExternalRunner(), args);
 		System.out.println(result);
 	}
+
 }

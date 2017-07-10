@@ -27,9 +27,9 @@ public class IpMapper extends Mapper<LongWritable, Text, IpDimention, LongWritab
 		Map<String, String> map = UrlPropertyUtils.toMap(url);
 		
 		IPSeekerExt ipSeekerExt = new IPSeekerExt();
-		RegionInfo info = ipSeekerExt.analyticIp("172.16.0.15");
-		String region = info.getCountry()+" "+info.getProvince();
-		
+		RegionInfo info = ipSeekerExt.analyticIp(ip);
+		String region = info.getProvince();
+		System.out.println("****************************" + region);
 		IpDimention ipDimention = new IpDimention("region",date, region , "-");
 		context.write(ipDimention, new LongWritable(1));
 		

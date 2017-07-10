@@ -4,19 +4,18 @@ import java.sql.Connection;
 
 import org.apache.hadoop.conf.Configuration;
 import org.apache.hadoop.fs.Path;
-import org.apache.hadoop.io.LongWritable;
+import org.apache.hadoop.io.Text;
 import org.apache.hadoop.mapreduce.Job;
 import org.apache.hadoop.mapreduce.lib.input.FileInputFormat;
 import org.apache.hadoop.util.Tool;
 import org.apache.hadoop.util.ToolRunner;
 
-import com.oracle.project.dimention.browser.BrowserDimention;
-import com.oracle.project.mapper.browser.BrowserMapper;
-import com.oracle.project.outputformat.browser.OutputFormatBrowserUpdate;
-import com.oracle.project.reducer.browser.BrowserReducer;
+import com.oracle.project.dimention.order.OrderDimention;
+import com.oracle.project.mapper.order.OrderMapper;
+import com.oracle.project.outputformat.order.OutputFormatOrder;
+import com.oracle.project.reducer.order.OrderReducer;
 
-public class BrowserRunner implements Tool {
-
+public class OrderRunner implements Tool{
 	private Configuration conf;
 	private Connection connection;
 	public void setConf(Configuration conf) {
@@ -32,18 +31,18 @@ public class BrowserRunner implements Tool {
 
 	public int run(String[] args) throws Exception {
 		Job job = Job.getInstance(conf);
-		job.setJarByClass(BrowserRunner.class);
+		job.setJarByClass(OrderRunner.class);
 		
-		job.setMapperClass(BrowserMapper.class);
-		job.setMapOutputKeyClass(BrowserDimention.class);
-		job.setMapOutputValueClass(LongWritable.class);
+		job.setMapperClass(OrderMapper.class);
+		job.setMapOutputKeyClass(OrderDimention.class);
+		job.setMapOutputValueClass(Text.class);
 		
-		job.setReducerClass(BrowserReducer.class);
-		job.setOutputKeyClass(BrowserDimention.class);
-		job.setOutputValueClass(LongWritable.class);
+		job.setReducerClass(OrderReducer.class);
+		job.setOutputKeyClass(OrderDimention.class);
+		job.setOutputValueClass(Text.class);
 		
-		FileInputFormat.setInputPaths(job, new Path("hdfs://yunfei2:9000/contextout2/part-r-00000"));
-		job.setOutputFormatClass(OutputFormatBrowserUpdate.class);
+		FileInputFormat.setInputPaths(job, new Path("hdfs://yunfei1:9000/contextout/part-r-00000"));
+		job.setOutputFormatClass(OutputFormatOrder.class);
 		if(job.waitForCompletion(true)){
 			return 1;
 		}
@@ -52,7 +51,8 @@ public class BrowserRunner implements Tool {
 	}
 
 	public static void main(String[] args) throws Exception {
-		int result = ToolRunner.run(new BrowserRunner(), args);
+		int result = ToolRunner.run(new OrderRunner(), args);
 		System.out.println(result);
 	}
+
 }

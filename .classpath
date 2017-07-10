@@ -19,7 +19,5 @@
 	</classpathentry>
 	<classpathentry kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/3"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.7"/>
-	<classpathentry kind="lib" path="C:/Users/Administrator/Desktop/项目/bmd/Browser/lib/jregex-1.2_01.jar"/>
-	<classpathentry kind="lib" path="C:/Users/Administrator/Desktop/项目/bmd/Browser/lib/uasparser-0.6.1.jar"/>
 	<classpathentry kind="output" path="target/classes"/>
 </classpath>

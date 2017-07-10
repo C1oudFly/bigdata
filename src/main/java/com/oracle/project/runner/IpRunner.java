@@ -41,7 +41,7 @@ public class IpRunner implements Tool {
 		job.setOutputKeyClass(IpDimention.class);
 		job.setOutputValueClass(LongWritable.class);
 		
-		FileInputFormat.setInputPaths(job, new Path("hdfs://yunfei1:9000/contextout/part-r-00000"));
+		FileInputFormat.setInputPaths(job, new Path("hdfs://yunfei1:9000/contextout2/part-r-00000"));
 		job.setOutputFormatClass(OutputFormatIp.class);
 		if(job.waitForCompletion(true)){
 			return 1;

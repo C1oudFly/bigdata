@@ -12,6 +12,15 @@ public class UserDimention implements WritableComparable<UserDimention> {
 	private String u_uid;
 	private String u_mid;
 	private String u_sd;
+	private String p_url;
+
+	public String getP_url() {
+		return p_url;
+	}
+
+	public void setP_url(String p_url) {
+		this.p_url = p_url;
+	}
 
 	public String getU_sd() {
 		return u_sd;
@@ -57,12 +66,13 @@ public class UserDimention implements WritableComparable<UserDimention> {
 		
 	}
 	
-	public UserDimention(String sign,String date,String u_ud,String u_mid,String u_sd) {
+	public UserDimention(String sign,String date,String u_ud,String u_mid,String u_sd,String p_url) {
 		this.sign = sign;
 		this.date = date;
 		this.u_uid = u_ud;
 		this.u_mid = u_mid;
 		this.u_sd = u_sd;
+		this.p_url = p_url;
 	}
 	
 	public void write(DataOutput out) throws IOException {
@@ -71,6 +81,7 @@ public class UserDimention implements WritableComparable<UserDimention> {
 		out.writeUTF(u_uid);
 		out.writeUTF(u_mid);
 		out.writeUTF(u_sd);
+		out.writeUTF(p_url);
 	}
 
 	public void readFields(DataInput in) throws IOException {
@@ -79,6 +90,7 @@ public class UserDimention implements WritableComparable<UserDimention> {
 		this.u_uid = in.readUTF();
 		this.u_mid = in.readUTF();
 		this.u_sd = in.readUTF();
+		this.p_url = in.readUTF();
 	}
 
 	public int compareTo(UserDimention o) {
@@ -111,6 +123,11 @@ public class UserDimention implements WritableComparable<UserDimention> {
 		if(tmp != 0){
 			return tmp;
 		}
+		
+		tmp = this.p_url.compareTo(o.p_url);
+		if(tmp != 0){
+			return tmp;
+		}
 
 		return 0;
 	}
@@ -125,6 +142,7 @@ public class UserDimention implements WritableComparable<UserDimention> {
 		result = (result*prime) + this.u_uid == null ? 0 : this.u_uid.hashCode();
 		result = (result*prime) + this.u_mid == null ? 0 : this.u_mid.hashCode();
 		result = (result*prime) + this.u_sd == null ? 0 : this.u_sd.hashCode();
+		result = (result*prime) + this.p_url == null ? 0 : this.p_url.hashCode();
 		
 		return result;
 	}
@@ -201,13 +219,25 @@ public class UserDimention implements WritableComparable<UserDimention> {
 			return false;
 		}
 		
+		if(this.p_url == null){
+			if(userDimention.p_url != null){
+				return false;
+			}
+		}else if(userDimention.p_url == null) {
+			if(this.p_url != null){
+				return false;
+			}
+		}else if(!this.p_url.equals(userDimention.p_url)) {
+			return false;
+		}
+		
 		return true;
 	}
 	
 	@Override
 	public String toString() {
 		// TODO Auto-generated method stub
-		return this.date + "\t" + this.sign + "\t" + this.u_uid + "\t" + this.u_mid + "\t" + this.u_sd;
+		return this.date + "\t" + this.sign + "\t" + this.u_uid + "\t" + this.u_mid + "\t" + this.u_sd + "\t" + this.p_url;
 	}
 	
 }

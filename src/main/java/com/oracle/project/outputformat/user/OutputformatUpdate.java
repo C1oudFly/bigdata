@@ -20,6 +20,7 @@ import org.apache.hadoop.mapreduce.lib.output.FileOutputFormat;
 import com.oracle.project.connect.JdbcManager;
 import com.oracle.project.dimention.user.UserDimention;
 import com.oracle.project.sql.imp.BigTable;
+import com.oracle.project.sql.imp.VisitDepth;
 
 public class OutputformatUpdate extends OutputFormat<UserDimention, LongWritable> {
 
@@ -40,6 +41,8 @@ public class OutputformatUpdate extends OutputFormat<UserDimention, LongWritable
 		private MapValue mapValue;
 		private HashMap<String, PreparedStatement> psMap = new HashMap<String, PreparedStatement>();
 		private HashMap<String, MapValue> hashMap = new LinkedHashMap();
+		private HashMap<String, Integer> visitdepthMap = new LinkedHashMap();
+		private String newkey;
 		
 		public MysqlRecordWriter(Configuration conf, Connection connection) {
 			this.configuration = conf;
@@ -117,6 +120,13 @@ public class OutputformatUpdate extends OutputFormat<UserDimention, LongWritable
 					mapValue.setSessionlengthCount(mapValue.getSessionlengthCount() + Double.parseDouble(value.toString())/60000);
 				}
 				hashMap.put(key.getDate(), mapValue);
+			}else if (key.getSign().equals("visitdepth")) {
+				newkey = key.getDate() + "\t" + key.getU_uid();
+				if(visitdepthMap.get(newkey) == null){
+					visitdepthMap.put(newkey, 1);
+				}else {
+					visitdepthMap.put(newkey, visitdepthMap.get(newkey) + 1);
+				}
 			}
 
 		}
@@ -126,6 +136,7 @@ public class OutputformatUpdate extends OutputFormat<UserDimention, LongWritable
 			
 			try {
 				psMap.put("bigtable", connection.prepareStatement(configuration.get("bigtable")));
+				psMap.put("visitdepth", connection.prepareStatement(configuration.get("visitdepth")));
 			} catch (SQLException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -147,6 +158,10 @@ public class OutputformatUpdate extends OutputFormat<UserDimention, LongWritable
 			
 			for(String date : hashMap.keySet()){
 				new BigTable().setPreparedStatement(psMap.get("bigtable"), date, hashMap.get(date));
+			}
+			
+			for(String s : visitdepthMap.keySet()){
+				new VisitDepth().setPreparedStatement(psMap.get("visitdepth"), s, Integer.toString(visitdepthMap.get(s)));
 			}
 			
 			for(String s : psMap.keySet()){
